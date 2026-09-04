@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-// Base URL for the StudyWithMe backend. Set VITE_API_URL in .env
-// (see .env.example). Falls back to local dev backend.
-export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const rawUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const sanitizedUrl = rawUrl.trim().replace(/\/+$/, '');
+export const API_BASE_URL = sanitizedUrl.endsWith('/api') ? sanitizedUrl : `${sanitizedUrl}/api`;
 
 // Route prefixes as actually mounted in the backend's server.js:
 //   app.use('/api/user', require('./routes/userRoutes'))
